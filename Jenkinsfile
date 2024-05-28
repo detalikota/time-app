@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         dockerImageFrontend = ''
+        dockerImageApi = ''
     }
     stages {
         stage ('Build images'){
@@ -24,8 +25,11 @@ pipeline {
         }
         stage ('Push images') {
             steps {
-                dockerImageFrontend.push()
-                dockerImageApi.push()
+                script {
+                    dockerImageFrontend.push()
+                    dockerImageApi.push()
+                }
+
             }
         }
     }
