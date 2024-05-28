@@ -9,7 +9,7 @@ pipeline {
             steps {
                 dir('frontend'){
                     script {
-                        dockerImageFrontend = docker.build("detalikota/time-app-frontend-dev", "-f frontend/Dockerfile .")
+                        dockerImageFrontend = docker.build("detalikota/time-app-frontend-dev", "-f Dockerfile .")
                     }
                 }
 
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 dir('api'){
                     script {
-                        dockerImageApi = docker.build("detalikota/time-app-api-dev", "-f api/Dockerfile .")
+                        dockerImageApi = docker.build("detalikota/time-app-api-dev", "-f Dockerfile .")
                     }
                 }
 
