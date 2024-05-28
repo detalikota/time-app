@@ -7,16 +7,22 @@ pipeline {
     stages {
         stage ('Build frontend') {
             steps {
-                script {
-                    dockerImageFrontend = docker.build("detalikota/time-app-frontend-dev", "-f frontend/Dockerfile .")
+                dir('frontend'){
+                    script {
+                        dockerImageFrontend = docker.build("detalikota/time-app-frontend-dev", "-f frontend/Dockerfile .")
+                    }
                 }
+
             }
         }
         stage('Build api'){
             steps {
-                script {
-                    dockerImageApi = docker.build("detalikota/time-app-api-dev", "-f api/Dockerfile .")
+                dir('api'){
+                    script {
+                        dockerImageApi = docker.build("detalikota/time-app-api-dev", "-f api/Dockerfile .")
+                    }
                 }
+
             }
         }
         stage ('Push images') {
