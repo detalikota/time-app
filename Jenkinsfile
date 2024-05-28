@@ -1,20 +1,37 @@
 pipeline {
     agent any
-
+    environment {
+        dockerImageFrontend = ''
+    }
     stages {
-        stage ('Make an image'){
+        stage ('Build images'){
             parallel {
-                stage ('Testing1') {
+                stage ('Build frontend') {
                     steps {
-                        echo "test1"
+                        script {
+                            dockerImageFrontend = docker.build("detalikota/time-app-frontend-dev", "-f frontend/Dockerfile .")
+                        }
                     }
                 }
-                stage('Testing2'){
+                stage('Build api'){
                     steps {
-                        echo "test2"
+                        script {
+                            dockerImageApi = docker.build("detalikota/time-app-api-dev", "-f api/Dockerfile .")
+                        }
                     }
                 }
             }
-        } 
+        }
+        stage ('Push images') {
+            steps {
+                dockerImageFrontend.push()
+                dockerImageApi.push()
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
     }
 }
