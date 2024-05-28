@@ -2,12 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage ('First stage') {
-            steps {
-                echo "Starting"
-                echo "Doing something"
-                echo "End3"
+        stage ('Make an image') 
+        parallel {
+            stage ('Testing1') {
+                steps {
+                    echo "test1"
+                }
+            }
+            stage('Testing2'){
+                steps {
+                    echo "test2"
+                }
+            }
             }
         }
     }
-}
