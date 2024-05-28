@@ -28,7 +28,7 @@ pipeline {
         stage ('Push images') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com', 'docker-creds') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
                         dockerImageFrontend.push()
                         dockerImageApi.push()
                     }
